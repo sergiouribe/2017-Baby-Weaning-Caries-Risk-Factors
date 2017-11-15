@@ -1,0 +1,14 @@
+id,Risk factor,Comparison,Outcome,Group A - Protector,Group B - Risk factor,Events in A,Total in A,Events in B,Total in B
+"Peltzer and Mongkolchati, 2015a",Breastfeeding,Breastfeed,S-ECC,Breastfed 1-3 months,Never breastfed,55,155,145,295
+"Peltzer and Mongkolchati, 2015b",Introduction to soft drinks,Drink,S-ECC,Never soft drinks,introduced 6-12 months soft drinks,113,289,144,299
+"Peltzer and Mongkolchati, 2015c",Sleeps with bottle at 30 months,Drink,S-ECC,No Sleeps with bottle at 30 months,1–6 times/week Sleeps with bottle at 30 months,187,454,76,142
+"Moimaz et al, 2014a",Breastfeeding,Breastfeed,White spot lesions,Breastfeeding,No breastfeeding,5,10,31,70
+"Moimaz et al, 2014b",Cariogenic foods during meals,Food,White spot lesions,No Cariogenic foods during meals,Cariogenic foods during meals,4,9,32,71
+"Moimaz et al, 2014c",Cariogenic foods between meals,Food,White spot lesions,No Cariogenic foods between meals,Cariogenic foods between meals,1,2,35,78
+"Moimaz et al, 2014d",Bottle (sweetened contents),Drink,White spot lesions,No Bottle (sweetened contents),Bottle (sweetened contents),9,21,27,59
+Peres et al 2017a,Breastfeeding,Breastfeed,S-ECC,13-23 m breastfeeding,>24m breastfeeding,26,129,97,258
+Peres et al 2017b,Suger consumption during lifetime,Food,S-ECC,Low or infreq. Sugar consumption,High sugar consumption,212,951,40,114
+"Majorana et al., 2014",Breastfeeding,Breastfeed,Caries by ICDAS,Exclusive breastfed,low/moderate mixed feeding or exclusive artificial,348,588,1588,1807
+"Un Lam et al., 2017",Night breastfeeding (3 weeks),Breastfeed,Caries by ICDAS,Night Breastfeeding,No night breastfeeding,41,179,11,114
+"Un Lam et al., 2017",Night bottle feeding (24 months),Drink,Caries by ICDAS,Night bottle feeding (24 months),No Night bottle feeding (24 months),37,190,15,103
+"Un Lam et al., 2017",Intake of sweet snacks at night,Food,Caries by ICDAS,Never/Occasionally sweet snacks/night,Freq. sweets snacks night,40,212,12,81

@@ -1,0 +1,256 @@
+---
+title: "2017 Baby weaning"
+author: "IL, RSU, SU"
+output:
+  pdf_document:
+    toc: yes
+  html_notebook:
+    fig_caption: yes
+    toc: yes
+    toc_float: yes
+  word_document:
+    toc: yes
+---
+
+# Data analysis
+
+Data extracted was tabulated in a google sheet. Then exported as csv file and imported in R (R Core Team (2017). R: A language and environment for statistical computing. R  Foundation for Statistical Computing, Vienna, Austria. URL https://www.R-project.org/.)
+
+The package meta was used for the meta-analysis. The heterogenicity between studies was checked with Tau2. A funnel plot was used to detect publication bias. We grouped the comparison and outcomes to compare studies. A random effect meta-analysis using odds-ratio as outcome was performed with a DerSimonian and Lard method (add reference DerSimonian 1986) . A forest plot was used to visualize the association between the exposure to specific risk factors and the outcome.  
+
+Risk factors were grouped in reports focused to drink, food or breastfeeding and outcomes were severe early-childhood caries (s-ECC), white spot lesions (WSL) or caries measured in ICDAS>0. 
+
+
+# Paquetes
+```{r, include = F, echo = F}
+Packages <- c("tidyverse", "forcats", "stringr", "broom", "meta")
+lapply(Packages, library, character.only = TRUE)
+rm(Packages)
+```
+
+# Dataset
+
+```{r}
+# df <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vR2cxtO3yvM7-qsEibr9s5dsWh-JCsItf0Vi1GkmKcxv9MxFqwLcbpoQdjEeAVWOpq7Q7EPzznqzdB0/pub?gid=0&single=true&output=csv")
+
+df <- read_csv("2017-weaning.csv")
+df <- mutate(df, Groups = paste(Comparison, Outcome))
+df <- df %>% 
+  filter(!str_detect(id, "Un Lam et al")) #avoid Un Lam papers
+
+```
+
+## Data cleaning
+
+
+
+
+# ANALYSIS
+
+## 1. Breastfeeding and s-ECC
+### Selection of papers
+```{r}
+df_b_ecc <- df %>%
+  filter(Groups == "Breastfeed S-ECC")
+```
+
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, #change this line 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+```
+
+### Bias
+
+```{r}
+funnel.meta(meta1, 
+            studlab = TRUE)
+```
+
+### Heterogeneity
+
+Baujat B, Mahé C, Pignon JP, Hill C (2002), A graphical method for exploring heterogeneity in
+meta-analyses: Application to a meta-analysis of 65 trials. Statistics in Medicine, 30, 2641–2652.
+
+```{r}
+baujat.meta(meta1, 
+            yscale = 10, xmin = 2, ymin = 2, 
+            cex.studlab = .55)
+```
+
+### Meta-analysis
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+
+```
+```{r}
+summary(meta1)
+```
+```{r}
+meta1
+```
+
+#### Forest plot
+```{r}
+forest.meta(meta1, # layout = "JAMA", # JAMA layout is more simple 
+       comb.fixed = FALSE,
+       # LEFT
+       label.left         = "Breastfeeding 1-23 mo", 
+       col.label.left     = "darkgreen", 
+       # RIGHT
+       label.right        = "No Breastfeeding or >24 mo BF",
+       col.label.right    = "darkred")
+```
+
+
+## 2.  Sugary drinks and s-ECC
+### Selection of papers
+```{r}
+df_b_ecc <- df %>%
+  filter(Groups == "Drink S-ECC")
+df_b_ecc
+```
+
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, #change this line 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+```
+
+### Bias
+
+```{r}
+funnel.meta(meta1, 
+            studlab = TRUE)
+```
+
+### Heterogeneity
+
+Baujat B, Mahé C, Pignon JP, Hill C (2002), A graphical method for exploring heterogeneity in
+meta-analyses: Application to a meta-analysis of 65 trials. Statistics in Medicine, 30, 2641–2652.
+
+```{r}
+baujat.meta(meta1, 
+            yscale = 10, xmin = 1, ymin = 1, 
+            studlab = TRUE , 
+            cex.studlab = .55)
+```
+
+### Meta-analysis
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+
+```
+```{r}
+summary(meta1)
+```
+```{r}
+meta1
+```
+
+#### Forest plot
+```{r}
+df_b_ecc
+forest.meta(meta1, # layout = "JAMA", # JAMA layout is more simple 
+       comb.fixed = FALSE,
+       # LEFT
+       label.left         = "No sugary drinks", 
+       col.label.left     = "darkgreen", 
+       # RIGHT
+       label.right        = "Sugary drinks",
+       col.label.right    = "darkred")
+```
+
+
+
+## 3.  Food White and spot lesions
+### Selection of papers
+```{r}
+
+df_b_ecc <- df %>%
+  filter(Groups == "Food White spot lesions")
+```
+
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, #change this line 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+```
+
+### Bias
+
+```{r}
+funnel.meta(meta1, 
+            studlab = TRUE)
+```
+
+### Heterogeneity
+
+Baujat B, Mahé C, Pignon JP, Hill C (2002), A graphical method for exploring heterogeneity in
+meta-analyses: Application to a meta-analysis of 65 trials. Statistics in Medicine, 30, 2641–2652.
+
+```{r}
+baujat.meta(meta1, 
+            yscale = 10, xmin = 1, ymin = 1, 
+            studlab = TRUE , 
+            cex.studlab = .55)
+```
+
+### Meta-analysis
+```{r}
+meta1 <- metabin(`Events in A`, `Total in A`, 
+                 `Events in B`, `Total in B`, 
+                 data = df_b_ecc, 
+                 sm="OR",  method.tau = "DL", 
+                 comb.fixed = FALSE, 
+                 studlab = id)
+
+```
+```{r}
+summary(meta1)
+```
+```{r}
+meta1
+```
+
+#### Forest plot
+```{r}
+forest.meta(meta1, # layout = "JAMA", # JAMA layout is more simple 
+       comb.fixed = FALSE,
+       # LEFT
+       label.left         = "No sugary snacks", 
+       col.label.left     = "darkgreen", 
+       # RIGHT
+       label.right        = "Sugary snacks",
+       col.label.right    = "darkred")
+```
+
+
+
+# References
+
+```{r}
+citation()
+citation(package = "tidyverse")
+citation(package = "stringr")
+citation(package = "meta")
+```
