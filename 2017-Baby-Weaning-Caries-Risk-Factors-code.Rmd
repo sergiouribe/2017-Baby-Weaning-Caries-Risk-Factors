@@ -40,8 +40,6 @@ df <- df %>%
 
 ```
 
-## Data cleaning
-
 
 
 
@@ -61,6 +59,7 @@ meta1 <- metabin(`Events in A`, `Total in A`,
                  sm="OR",  method.tau = "DL", 
                  comb.fixed = FALSE, 
                  studlab = id)
+meta1
 ```
 
 ### Bias
